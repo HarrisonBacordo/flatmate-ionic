@@ -40,9 +40,15 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
+    SignupPage,
+    ForgotPasswordPage,
     ChoresPage,
+    AddChorePage,
     RemindersPage,
+    AddReminderPage,
     GroceriesPage,
+    AddGroceryPage,
     MorePage,
     TabsPage
   ],

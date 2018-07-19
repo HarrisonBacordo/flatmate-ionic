@@ -4,15 +4,19 @@
     </ion-navbar>
   </ion-header>
   
-  <ion-content padding>
-    <h2>Welcome to Ionic!</h2>
-    <p>
-      This starter project comes with simple tabs-based layout for apps
-      that are going to primarily use a Tabbed UI.
-    </p>
-    <p>
-      Take a look at the <code>src/pages/</code> directory to add or change tabs,
-      update any existing page or create new pages.
-    </p>
-  </ion-content>
+  <ion-list>
+      <ion-item>
+          <ion-label floating>Name of Chore</ion-label>
+          <ion-input type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-select>
+            <ion-option value="daily">Daily</ion-option>
+            <ion-option value="weekly">Weekly</ion-option>
+            <ion-option value="fortnightly">Fortnightly</ion-option>
+            <ion-option value="monthly">Monthly</ion-option>
+          </ion-select>
+      </ion-item>
+      <button ion-button color="light">Create</button>
+  </ion-list>
   
