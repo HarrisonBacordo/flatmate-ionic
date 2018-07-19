@@ -18,6 +18,21 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
+import { HttpModule } from '@angular/http';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { FirebaseProvider } from './../providers/firebase/firebase';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCBmYT8iN7fgjZQHoPkqZlLqpFGsauceO8",
+    authDomain: "flat-mate-app.firebaseapp.com",
+    databaseURL: "https://flat-mate-app.firebaseio.com",
+    projectId: "flat-mate-app",
+    storageBucket: "flat-mate-app.appspot.com",
+    messagingSenderId: "803035832572"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +50,10 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -55,7 +74,9 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    FirebaseProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseProvider
   ]
 })
 export class AppModule {}
