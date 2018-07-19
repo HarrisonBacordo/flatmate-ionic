@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 
 import { ChoresPage } from '../pages/chores/chores';
 import { RemindersPage } from '../pages/reminders/reminders';
-import {GroceriesPage} from '../pages/groceries/groceries'
+import { GroceriesPage } from '../pages/groceries/groceries'
 import { MorePage } from '../pages/more/more'
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -25,12 +25,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FirebaseProvider } from './../providers/firebase/firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCBmYT8iN7fgjZQHoPkqZlLqpFGsauceO8",
-    authDomain: "flat-mate-app.firebaseapp.com",
-    databaseURL: "https://flat-mate-app.firebaseio.com",
-    projectId: "flat-mate-app",
-    storageBucket: "flat-mate-app.appspot.com",
-    messagingSenderId: "803035832572"
+  apiKey: "AIzaSyCBmYT8iN7fgjZQHoPkqZlLqpFGsauceO8",
+  authDomain: "flat-mate-app.firebaseapp.com",
+  databaseURL: "https://flat-mate-app.firebaseio.com",
+  projectId: "flat-mate-app",
+  storageBucket: "flat-mate-app.appspot.com",
+  messagingSenderId: "803035832572"
 };
 
 @NgModule({
@@ -75,8 +75,8 @@ const firebaseConfig = {
     StatusBar,
     SplashScreen,
     FirebaseProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
