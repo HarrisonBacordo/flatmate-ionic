@@ -1,3 +1,5 @@
 page-login {
-    background: color($colors, primary);
-}
+    .invalid {
+      border-bottom: 1px solid #ff6153;
+    }
+  }

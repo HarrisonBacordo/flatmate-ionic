@@ -4,20 +4,33 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
-    <ion-list>
-        <ion-item>
-            <ion-label floating>Username</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
-        <ion-list>
-            <button ion-button color="light">Log In</button>
-            <button ion-button color="light">Sign Up</button>
-        </ion-list>
-    </ion-list>
-</ion-content>
+<ion-content padding>
+    <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+  
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input formControlName="email" type="email" placeholder="Your email address"
+          [class.invalid]="!loginForm.controls.email.valid && blur"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input formControlName="password" type="password" placeholder="Your password"
+          [class.invalid]="!loginForm.controls.password.valid && blur"></ion-input>
+      </ion-item>
+  
+      <button ion-button block type="submit" [disabled]="!loginForm.valid">
+        Login
+      </button>
+  
+    </form>
+  
+    <button ion-button block clear (click)="goToSignup()">
+      Create a new account
+    </button>
+  
+    <button ion-button block clear (click)="goToResetPassword()">
+      I forgot my password
+    </button>
+  
+  </ion-content>
