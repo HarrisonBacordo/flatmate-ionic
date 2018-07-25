@@ -4,6 +4,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { EmailValidator } from '../../validators/email';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ChoresPage } from '../chores/chores';
+import { SignupPage } from '../signup/signup';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 @Component({
 	selector: 'page-login',
@@ -57,11 +59,11 @@ export class LoginPage {
 	}
 
 	goToSignup(): void {
-		this.navCtrl.push('SignupPage');
+		this.navCtrl.push(SignupPage);
 	}
 
 	goToResetPassword(): void {
-		this.navCtrl.push('ForgotPasswordPage');
+		this.navCtrl.push(ForgotPasswordPage);
 	}
 
 }

@@ -1,32 +1,39 @@
+<!-- FIXME BUG FORM CANT FIND FIRSTNAME CONTROL NAME -->
 <ion-header>
-    <ion-navbar>
-      <ion-title>Sign Up</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>
-        <ion-list>
-            <ion-item>
-                <ion-label floating>First Name</ion-label>
-                <ion-input type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>Last Name</ion-label>
-                <ion-input type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>Email</ion-label>
-                <ion-input type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>Password</ion-label>
-                <ion-input type="password"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label floating>Retype password</ion-label>
-                <ion-input type="password"></ion-input>
-            </ion-item>
-            <button ion-button color="light">Submit</button>
-        </ion-list>
-  </ion-content>
-  
+	<ion-navbar>
+		<ion-title>Sign Up</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
+		<ion-item>
+			<ion-label stacked>First Name</ion-label>
+			<ion-input formControlName="firstName" type="text" placeholder="First name"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label stacked>Last Name</ion-label>
+			<ion-input formControlName="lastName" type="text" placeholder="Last name"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label stacked>Email</ion-label>
+			<ion-input formControlName="email" type="email" placeholder="Your email address" [class.invalid]="!signupForm.controls.email.valid && blur"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label stacked>Password</ion-label>
+			<ion-input formControlName="password" type="password" placeholder="Your password" [class.invalid]="!signupForm.controls.password.valid && blur"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label stacked>Retype password</ion-label>
+			<ion-input formControlName="retypedPassword" type="password" placeholder="Retype password" [class.invalid]="!signupForm.controls.password.valid && blur"></ion-input>
+		</ion-item>
+
+		<button ion-button block type="submit" [disabled]="!signupForm.valid">
+			Submit
+		</button>
+	</form>
+</ion-content>

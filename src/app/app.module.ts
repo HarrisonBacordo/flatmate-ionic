@@ -17,22 +17,17 @@ import { AddGroceryPage } from '../pages/add-grocery/add-grocery';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
-
+import firebase from 'firebase/app';
 import { HttpModule } from '@angular/http';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { firebaseConfig } from './credentials'
 import { FirebaseProvider } from './../providers/firebase/firebase';
 import { AuthProvider } from '../providers/auth/auth';
+import { FirestoreProvider } from '../providers/firestore/firestore';
 
-const firebaseConfig = {
-	apiKey: "AIzaSyCBmYT8iN7fgjZQHoPkqZlLqpFGsauceO8",
-	authDomain: "flat-mate-app.firebaseapp.com",
-	databaseURL: "https://flat-mate-app.firebaseio.com",
-	projectId: "flat-mate-app",
-	storageBucket: "flat-mate-app.appspot.com",
-	messagingSenderId: "803035832572"
-};
+firebase.initializeApp(firebaseConfig);
 
 @NgModule({
 	declarations: [
@@ -52,7 +47,7 @@ const firebaseConfig = {
 	imports: [
 		BrowserModule,
 		HttpModule,
-		AngularFireDatabaseModule,
+		AngularFirestoreModule,
 		AngularFireModule.initializeApp(firebaseConfig),
 		AngularFireAuthModule,
 		IonicModule.forRoot(MyApp)
@@ -77,8 +72,8 @@ const firebaseConfig = {
 		SplashScreen,
 		FirebaseProvider,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
-		FirebaseProvider,
-		AuthProvider
+		FirestoreProvider,
+		AuthProvider,
 	]
 })
 export class AppModule { }

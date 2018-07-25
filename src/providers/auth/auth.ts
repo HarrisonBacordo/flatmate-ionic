@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import { FirestoreProvider } from '../../providers/firestore/firestore';
 
 @Injectable()
 export class AuthProvider {
-	constructor() { }
+	constructor(public firestoreProvider: FirestoreProvider) { }
 
 	loginUser(email: string, password: string): Promise<any> {
 		return firebase.auth().signInWithEmailAndPassword(email, password);
 	}
 
-	signupUser(email: string, password: string): Promise<any> {
+	signupUser(email: string, password: string, firstName: string, lastName: string): Promise<any> {
 		return firebase
 			.auth()
 			.createUserWithEmailAndPassword(email, password)
 			.then(newUser => {
-				firebase
-					.database()
-					.ref('/userProfile')
-					.child(newUser.user.uid)
-					.set({ email: email });
+				this.firestoreProvider.createFlatmate(email, firstName,lastName, 'Unassigned');
 			});
 	}
 
