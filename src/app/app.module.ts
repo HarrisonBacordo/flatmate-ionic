@@ -26,59 +26,59 @@ import { FirebaseProvider } from './../providers/firebase/firebase';
 import { AuthProvider } from '../providers/auth/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCBmYT8iN7fgjZQHoPkqZlLqpFGsauceO8",
-  authDomain: "flat-mate-app.firebaseapp.com",
-  databaseURL: "https://flat-mate-app.firebaseio.com",
-  projectId: "flat-mate-app",
-  storageBucket: "flat-mate-app.appspot.com",
-  messagingSenderId: "803035832572"
+	apiKey: "AIzaSyCBmYT8iN7fgjZQHoPkqZlLqpFGsauceO8",
+	authDomain: "flat-mate-app.firebaseapp.com",
+	databaseURL: "https://flat-mate-app.firebaseio.com",
+	projectId: "flat-mate-app",
+	storageBucket: "flat-mate-app.appspot.com",
+	messagingSenderId: "803035832572"
 };
 
 @NgModule({
-  declarations: [
-    MyApp,
-    LoginPage,
-    SignupPage,
-    ForgotPasswordPage,
-    ChoresPage,
-    AddChorePage,
-    RemindersPage,
-    AddReminderPage,
-    GroceriesPage,
-    AddGroceryPage,
-    MorePage,
-    TabsPage
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule,
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    LoginPage,
-    SignupPage,
-    ForgotPasswordPage,
-    ChoresPage,
-    AddChorePage,
-    RemindersPage,
-    AddReminderPage,
-    GroceriesPage,
-    AddGroceryPage,
-    MorePage,
-    TabsPage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    FirebaseProvider,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    FirebaseProvider,
-    AuthProvider
-  ]
+	declarations: [
+		MyApp,
+		LoginPage,
+		SignupPage,
+		ForgotPasswordPage,
+		ChoresPage,
+		AddChorePage,
+		RemindersPage,
+		AddReminderPage,
+		GroceriesPage,
+		AddGroceryPage,
+		MorePage,
+		TabsPage
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		AngularFireDatabaseModule,
+		AngularFireModule.initializeApp(firebaseConfig),
+		AngularFireAuthModule,
+		IonicModule.forRoot(MyApp)
+	],
+	bootstrap: [IonicApp],
+	entryComponents: [
+		MyApp,
+		LoginPage,
+		SignupPage,
+		ForgotPasswordPage,
+		ChoresPage,
+		AddChorePage,
+		RemindersPage,
+		AddReminderPage,
+		GroceriesPage,
+		AddGroceryPage,
+		MorePage,
+		TabsPage
+	],
+	providers: [
+		StatusBar,
+		SplashScreen,
+		FirebaseProvider,
+		{ provide: ErrorHandler, useClass: IonicErrorHandler },
+		FirebaseProvider,
+		AuthProvider
+	]
 })
 export class AppModule { }

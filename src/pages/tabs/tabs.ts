@@ -6,16 +6,16 @@ import { GroceriesPage } from '../groceries/groceries';
 import { MorePage } from '../more/more';
 
 @Component({
-  templateUrl: 'tabs.html'
+	templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = ChoresPage;
-  tab2Root = RemindersPage;
-  tab3Root = GroceriesPage;
-  tab4Root = MorePage;
+	tab1Root = ChoresPage;
+	tab2Root = RemindersPage;
+	tab3Root = GroceriesPage;
+	tab4Root = MorePage;
 
-  constructor() {
+	constructor() {
 
-  }
+	}
 }
