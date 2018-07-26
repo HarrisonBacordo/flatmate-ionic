@@ -18,13 +18,13 @@ export class FirestoreProvider {
 	fullName: string,
 	flatKey: string
   ): Promise<void> {
-	  
+
     return this._DB.doc(`Users/${id}`).set({
       email,
       firstName,
       lastName,
 	  fullName,
-	  flatKey
+	  flatKey,
     });
   }
 }
