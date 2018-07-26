@@ -15,7 +15,7 @@ export class AuthProvider {
 			.auth()
 			.createUserWithEmailAndPassword(email, password)
 			.then(newUser => {
-				this.firestoreProvider.createFlatmate(email, firstName,lastName, 'Unassigned');
+				this.firestoreProvider.createFlatmate(newUser.user.uid, email, firstName,lastName, firstName + " " + lastName, 'Unassigned');
 			});
 	}
 

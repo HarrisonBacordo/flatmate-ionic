@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import { firebaseConfig } from '../../app/credentials';
+import { last } from '../../../node_modules/rxjs/operator/last';
 
 @Injectable()
 export class FirestoreProvider {
@@ -10,19 +11,20 @@ export class FirestoreProvider {
   }
 
   createFlatmate(
-    albumName: string,
-    artistName: string,
-    songDescription: string,
-    songName: string
+	id: String,
+	email: string,
+	firstName: string,
+	lastName: string,
+	fullName: string,
+	flatKey: string
   ): Promise<void> {
-    const id = this._DB.createId();
-
-    return this._DB.doc(`songList/${id}`).set({
-      id,
-      albumName,
-      artistName,
-      songDescription,
-      songName,
+	  
+    return this._DB.doc(`Users/${id}`).set({
+      email,
+      firstName,
+      lastName,
+	  fullName,
+	  flatKey
     });
   }
 }

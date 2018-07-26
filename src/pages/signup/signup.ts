@@ -25,6 +25,8 @@ export class SignupPage {
 				Validators.compose([Validators.minLength(6), Validators.required])],
 			retypedPassword: ['',
 				Validators.compose([Validators.minLength(6), Validators.required])],
+				firstName: [],
+				lastName: []
 		});
 	}
 
