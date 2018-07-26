@@ -3,6 +3,7 @@ import { NavController, LoadingController, Loading, AlertController } from 'ioni
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { TabsPage } from '../tabs/tabs';
+import { CreateNewFlatPage } from '../create-new-flat/create-new-flat';
 
 @Component({
 	selector: 'page-more',
@@ -40,5 +41,9 @@ export class MorePage {
 		});
 		this.loading = this.loadingCtrl.create();
 		this.loading.present();
+	}
+
+	goToNewFlatPage() {
+		this.navCtrl.setRoot(CreateNewFlatPage);
 	}
 }

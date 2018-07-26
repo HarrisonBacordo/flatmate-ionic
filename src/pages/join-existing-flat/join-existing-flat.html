@@ -1,0 +1,21 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Join Existing Flat</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<h1>Enter the flat ID below</h1>
+	<form [formGroup]="joinExistingFlatForm" (submit)="attemptJoin()" novalidate>
+
+		<ion-item>
+			<ion-label stacked>Flat ID</ion-label>
+			<ion-input formControlName="flatId" type="text" placeholder="Flat ID"></ion-input>
+		</ion-item>
+
+		<button ion-button block type="submit" [disabled]="!joinExistingFlatForm.valid">
+			Join
+		</button>
+
+	</form>
+</ion-content>

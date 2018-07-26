@@ -27,4 +27,10 @@ export class FirestoreProvider {
 	  flatKey,
     });
   }
+
+  createNewFlat(flatName: string): Promise<void> {
+	  const flatCollection = this._DB.collection('Flats');
+	  const flatId = flatCollection.doc().id;
+	  return flatCollection.doc().update("flatName", flatName);
+  }
 }

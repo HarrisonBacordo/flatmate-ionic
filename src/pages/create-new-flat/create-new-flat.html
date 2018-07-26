@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Create New Flat</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+		<h1>Enter your new flat name below</h1>
+	<form [formGroup]="createNewFlatForm" (submit)="createNewFlat()" novalidate>
+
+		<ion-item>
+			<ion-label stacked>New Flat Name</ion-label>
+			<ion-input formControlName="flatName" type="text" placeholder="Your flat name"></ion-input>
+		</ion-item>
+
+		<button ion-button block type="submit" [disabled]="!createNewFlatForm.valid">
+			Create
+		</button>
+
+	</form>
+	<button ion-button block clear (click)="goToJoinExistingFlatPage()">
+		Want to join an existing flat? Click here
+	</button>
+</ion-content>

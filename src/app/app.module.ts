@@ -26,6 +26,8 @@ import { firebaseConfig } from './credentials'
 import { FirebaseProvider } from './../providers/firebase/firebase';
 import { AuthProvider } from '../providers/auth/auth';
 import { FirestoreProvider } from '../providers/firestore/firestore';
+import { CreateNewFlatPage } from '../pages/create-new-flat/create-new-flat';
+import { JoinExistingFlatPage } from '../pages/join-existing-flat/join-existing-flat';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -38,6 +40,8 @@ firebase.initializeApp(firebaseConfig);
 		ChoresPage,
 		AddChorePage,
 		RemindersPage,
+		CreateNewFlatPage,
+		JoinExistingFlatPage,
 		AddReminderPage,
 		GroceriesPage,
 		AddGroceryPage,
@@ -61,6 +65,8 @@ firebase.initializeApp(firebaseConfig);
 		ChoresPage,
 		AddChorePage,
 		RemindersPage,
+		CreateNewFlatPage,
+		JoinExistingFlatPage,
 		AddReminderPage,
 		GroceriesPage,
 		AddGroceryPage,
