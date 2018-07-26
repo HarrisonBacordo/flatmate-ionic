@@ -3,9 +3,9 @@ import { NavController, IonicPage, Loading, LoadingController, AlertController }
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { EmailValidator } from '../../validators/email';
 import { AuthProvider } from '../../providers/auth/auth';
-import { ChoresPage } from '../chores/chores';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
 	selector: 'page-login',
@@ -37,7 +37,7 @@ export class LoginPage {
 				this.loginForm.value.password)
 				.then(authData => {
 					this.loading.dismiss().then(() => {
-						this.navCtrl.setRoot(ChoresPage);
+						this.navCtrl.setRoot(TabsPage);
 					});
 				}, error => {
 					this.loading.dismiss().then(() => {

@@ -3,7 +3,7 @@ import { NavController, Loading, AlertController, LoadingController } from 'ioni
 import { EmailValidator } from '../../validators/email';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-import { ChoresPage } from '../chores/chores';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
 	selector: 'page-signup',
@@ -38,7 +38,7 @@ export class SignupPage {
 													  this.signupForm.value.firstName, this.signupForm.value.lastName)
 			.then(authData => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.setRoot(ChoresPage);
+					this.navCtrl.setRoot(TabsPage);
 				}, error => {
 					this.loading.dismiss().then(() => {
 						let alert = this.alertCtrl.create({

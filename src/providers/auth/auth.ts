@@ -19,10 +19,11 @@ export class AuthProvider {
 			});
 	}
 
+	// NEED TO SHOW A DIALOGUE SAYING THE PASSWORD HAS BEEN RESET
 	resetPassword(email: string): Promise<void> {
 		return firebase.auth().sendPasswordResetEmail(email);
 	}
-
+	// TODO need to remove tabs on signout
 	logoutUser(): Promise<void> {
 		return firebase.auth().signOut();
 	}
