@@ -3,6 +3,7 @@ import { NavController, LoadingController, Loading, AlertController } from 'ioni
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { TabsPage } from '../tabs/tabs';
+import { ChoresPage } from '../chores/chores';
 
 @Component({
 	selector: 'page-join-existing-flat',

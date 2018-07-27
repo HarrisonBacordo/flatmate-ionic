@@ -5,20 +5,27 @@
 </ion-header>
 
 <ion-content>
-	<ion-list>
+	<form [formGroup]="addChoreForm" (submit)="tryAddChore()" novalidate>
+
 		<ion-item>
-			<ion-label floating>Name of Chore</ion-label>
-			<ion-input type="text"></ion-input>
+			<ion-label stacked>Chore Name</ion-label>
+			<ion-input formControlName="choreName" type="text" placeholder="Chore title" [class.invalid]="!addChoreForm.controls.choreName.valid && blur"></ion-input>
 		</ion-item>
+
 		<ion-item>
-			<ion-select>
+			<ion-label stacked>Interval</ion-label>
+			<ion-select formControlName="interval">
 				<ion-option value="daily">Daily</ion-option>
 				<ion-option value="weekly">Weekly</ion-option>
 				<ion-option value="fortnightly">Fortnightly</ion-option>
 				<ion-option value="monthly">Monthly</ion-option>
 			</ion-select>
 		</ion-item>
-		<button ion-button color="light">Create</button>
-	</ion-list>
+
+		<button ion-button block type="submit">
+			Add Chore
+		</button>
+
+	</form>
 </ion-content>
 <ion-list>

@@ -5,11 +5,16 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item>
-            <ion-label floating>Name of Chore</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
-        <button ion-button color="light">Add</button>
-    </ion-list>
+		<form [formGroup]="addGroceryForm" (submit)="tryAddGrocery()" novalidate>
+
+				<ion-item>
+					<ion-label stacked>Grocery Name</ion-label>
+					<ion-input formControlName="groceryName" type="text" placeholder="Grocery name" [class.invalid]="!addGroceryForm.controls.groceryName.valid && blur"></ion-input>
+				</ion-item>
+		
+				<button ion-button block type="submit">
+					Add Grocery
+				</button>
+		
+			</form>
 </ion-content>

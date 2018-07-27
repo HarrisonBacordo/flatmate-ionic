@@ -1,18 +1,25 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>Add Reminder</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <h2>Welcome to Ionic!</h2>
-    <p>
-      This starter project comes with simple tabs-based layout for apps
-      that are going to primarily use a Tabbed UI.
-    </p>
-    <p>
-      Take a look at the <code>src/pages/</code> directory to add or change tabs,
-      update any existing page or create new pages.
-    </p>
-  </ion-content>
-  
+	<ion-navbar>
+		<ion-title>Add Reminder</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form [formGroup]="addReminderForm" (submit)="tryAddReminder()" novalidate>
+
+		<ion-item>
+			<ion-label stacked>Reminder Name</ion-label>
+			<ion-input formControlName="reminderName" type="text" placeholder="Reminder name" [class.invalid]="!addReminderForm.controls.reminderName.valid && blur">
+			</ion-input>
+		</ion-item>
+
+		<ion-item>
+			<!-- TODO DATE INPUT HERE -->
+		</ion-item>
+
+		<button ion-button block type="submit">
+			Add Reminder
+		</button>
+
+	</form>
+</ion-content>
