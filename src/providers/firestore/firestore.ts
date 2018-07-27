@@ -28,10 +28,13 @@ export class FirestoreProvider {
     });
   }
 
-//   FIXME need to refactor this since this is wrong
   createNewFlat(flatName: string): Promise<void> {
-	  const flatCollection = this._DB.collection('Flats');
-	  const flatId = flatCollection.doc().id;
-	  return flatCollection.doc().update("flatName", flatName);
+	  const ref = this._DB.collection('Flats').doc();
+	  const id = ref.id;
+	  return ref.set({'flatName': flatName});
+  }
+
+  attemptJoinExistingFlat(flatId: string) {
+
   }
 }
