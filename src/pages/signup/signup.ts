@@ -25,35 +25,35 @@ export class SignupPage {
 				Validators.compose([Validators.minLength(6), Validators.required])],
 			retypedPassword: ['',
 				Validators.compose([Validators.minLength(6), Validators.required])],
-				firstName: [],
-				lastName: []
+			firstName: [],
+			lastName: []
 		});
 	}
 
 	signupUser() {
-		if(!this.signupForm.valid) {
+		if (!this.signupForm.valid) {
 			console.log(this.signupForm.value);
 		} else {
-			this.authProvider.signupUser(this.signupForm.value.email, this.signupForm.value.password, 
-													  this.signupForm.value.firstName, this.signupForm.value.lastName)
-			.then(authData => {
-				this.loading.dismiss().then(() => {
-					this.navCtrl.setRoot(TabsPage);
-				}, error => {
+			this.authProvider.signupUser(this.signupForm.value.email, this.signupForm.value.password,
+				this.signupForm.value.firstName, this.signupForm.value.lastName)
+				.then(authData => {
 					this.loading.dismiss().then(() => {
-						let alert = this.alertCtrl.create({
-							message: error.message,
-							buttons: [
-								{
-									text: "Ok",
-									role: 'cancel'
-								}
-							]
+						this.navCtrl.setRoot(TabsPage);
+					}, error => {
+						this.loading.dismiss().then(() => {
+							let alert = this.alertCtrl.create({
+								message: error.message,
+								buttons: [
+									{
+										text: "Ok",
+										role: 'cancel'
+									}
+								]
+							});
+							alert.present();
 						});
-						alert.present();
 					});
 				});
-			});
 			this.loading = this.loadingCtrl.create();
 			this.loading.present();
 		}
