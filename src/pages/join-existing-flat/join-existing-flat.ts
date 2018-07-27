@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
+import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
@@ -16,6 +17,7 @@ export class JoinExistingFlatPage {
 		public formBuilder: FormBuilder,
 		public loadCtrl: LoadingController,
 		public databaseProvider: FirestoreProvider,
+		public alertCtrl: AlertController,
 	) {
 		this.joinExistingFlatForm = formBuilder.group({
 			flatId: ['', Validators.required]
@@ -26,10 +28,10 @@ export class JoinExistingFlatPage {
 		if (!this.joinExistingFlatForm.valid) {
 			console.log(this.joinExistingFlatForm.value);
 		} else {
-			this.databaseProvider.attemptJoin(this.joinExistingFlatForm.value.flatId)
+			this.databaseProvider.attemptJoinExistingFlat(this.joinExistingFlatForm.value.flatId)
 				.then(authData => {
 					this.loading.dismiss().then(() => {
-						this.navCtrl.setRoot(TabsPage);
+						this.navCtrl.setRoot(ChoresPage);
 					}, error => {
 						this.loading.dismiss().then(() => {
 							let alert = this.alertCtrl.create({

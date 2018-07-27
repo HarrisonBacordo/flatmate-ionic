@@ -6,8 +6,9 @@ import { last } from '../../../node_modules/rxjs/operator/last';
 @Injectable()
 export class FirestoreProvider {
 	private _DB: any;
+	public userId: string;
 	constructor() {
-		this._DB = firebase.firestore()
+		this._DB = firebase.firestore();
 	}
 
 	createFlatmate(
@@ -34,16 +35,20 @@ export class FirestoreProvider {
 		return ref.set({ 'flatName': flatName });
 	}
 
-	attemptJoinExistingFlat(flatId: string) {
+	attemptJoinExistingFlat(flatId: string): Promise<void> {
 		const flatRef = _DB.collection('Flats').doc(flatId);
-		const getDoc = flatRef.get()
-			.then(doc => {
-				if (!doc.exists) {
-					//   TODO ALERT NO FLAT
-				} else {
-					//   TODO CHANGE USER FLATKEY TO THIS FLATKEY
-				}
-			})
+		console.log(flatId);
+		// const getDoc = flatRef.get()
+		// 	.then(doc => {
+		// 		if (!doc.exists) {
+		// 			console.log('cant find ' + this.userId);
+		// 			//   TODO ALERT NO FLAT
+		// 		} else {
+		// 			console.log(doc);
+		// 			//   TODO CHANGE USER FLATKEY TO THIS FLATKEY
+		// 			return this._DB.doc(`Users/${this.userId}`).update('flatKey', flatId);
+		// 		}
+		// 	});
 	}
 	
 	attemptAddChore() {

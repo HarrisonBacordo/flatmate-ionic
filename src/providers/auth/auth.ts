@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase/app';
+import firebase, { firestore } from 'firebase/app';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 
 @Injectable()
@@ -7,7 +7,10 @@ export class AuthProvider {
 	constructor(public firestoreProvider: FirestoreProvider) { }
 
 	loginUser(email: string, password: string): Promise<any> {
-		return firebase.auth().signInWithEmailAndPassword(email, password);
+		const temp = firebase.auth().signInWithEmailAndPassword(email, password);
+		this.firestoreProvider.userId = firebase.auth().currentUser.uid;
+		console.log(this.firestoreProvider.userId);
+		return temp;
 	}
 
 	signupUser(email: string, password: string, firstName: string, lastName: string): Promise<any> {
