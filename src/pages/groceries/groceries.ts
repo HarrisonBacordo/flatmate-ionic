@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { AddGroceryPage } from '../add-grocery/add-grocery';
 
 @Component({
@@ -8,11 +8,14 @@ import { AddGroceryPage } from '../add-grocery/add-grocery';
 })
 export class GroceriesPage {
 
-	constructor(public navCtrl: NavController) {
+	constructor(
+		public navCtrl: NavController,
+		public modalCtrl: ModalController) {
 
 	}
 
 	openAddGroceryPage() {
-		this.navCtrl.push(AddGroceryPage);
+		const modal = this.modalCtrl.create(AddGroceryPage);
+		modal.present();
 	}
 }

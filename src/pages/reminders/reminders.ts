@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { AddReminderPage } from '../add-reminder/add-reminder';
 import { FormControl, FormGroup, FormBuilder } from '../../../node_modules/@angular/forms';
 
@@ -9,10 +9,12 @@ import { FormControl, FormGroup, FormBuilder } from '../../../node_modules/@angu
 })
 export class RemindersPage {
 	constructor(
-		public navCtrl: NavController) {
+		public navCtrl: NavController,
+		public modalCtrl: ModalController) {
 	}
 
 	openAddReminderPage() {
-		this.navCtrl.push(AddReminderPage);
+		const modal = this.modalCtrl.create(AddReminderPage);
+		modal.present();
 	}
 }

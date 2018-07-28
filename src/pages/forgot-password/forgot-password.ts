@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, Loading } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, Loading, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EmailValidator } from '../../validators/email';
 import { FormGroup, Validators,  FormBuilder } from '../../../node_modules/@angular/forms';
@@ -17,7 +17,8 @@ export class ForgotPasswordPage {
 		public loadingCtrl: LoadingController,
 		public authProvider: AuthProvider,
 		public alertCtrl: AlertController,
-		public formBuilder: FormBuilder) {
+		public formBuilder: FormBuilder,
+		public toastCtrl: ToastController) {
 			this.resetPasswordForm = formBuilder.group({
 				email: ['',
 					Validators.compose([Validators.required, EmailValidator.isValid])],
@@ -32,6 +33,11 @@ export class ForgotPasswordPage {
 				.then(resetData => {
 					this.loading.dismiss().then(() => {
 						this.navCtrl.setRoot(LoginPage);
+						const toast = this.toastCtrl.create({
+							message: 'Reset password email has been sent',
+							duration: 3000
+						  });
+						  toast.present();
 					})
 				}, error => {
 					this.loading.dismiss().then(() => {

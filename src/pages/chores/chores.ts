@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { AddChorePage } from '../add-chore/add-chore';
 
 @Component({
@@ -8,12 +8,15 @@ import { AddChorePage } from '../add-chore/add-chore';
 })
 export class ChoresPage {
 
-	constructor(public navCtrl: NavController) {
+	constructor(
+		public navCtrl: NavController,
+		public modalCtrl: ModalController) {
 
 	}
 
 	openAddChorePage() {
-		this.navCtrl.push(AddChorePage);
+		const modal = this.modalCtrl.create(AddChorePage);
+		modal.present();
 	}
 
 }
