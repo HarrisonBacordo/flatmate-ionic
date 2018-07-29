@@ -14,6 +14,10 @@ export class GroceriesPage {
 
 	}
 
+	updateItem(item) {
+		// update database
+	}
+
 	openAddGroceryPage() {
 		const modal = this.modalCtrl.create(AddGroceryPage);
 		modal.present();
