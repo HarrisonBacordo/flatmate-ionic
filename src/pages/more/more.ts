@@ -44,6 +44,6 @@ export class MorePage {
 	}
 
 	goToNewFlatPage() {
-		this.navCtrl.setRoot(CreateNewFlatPage);
+		this.navCtrl.push(CreateNewFlatPage);
 	}
 }

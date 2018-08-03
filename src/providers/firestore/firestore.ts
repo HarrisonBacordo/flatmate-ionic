@@ -54,7 +54,7 @@ export class FirestoreProvider {
 	async attemptJoinExistingFlat(flatId: string): Promise<void> {
 		const flatRef: DocumentReference = this._DB.collection('flats').doc(flatId);
 		const promise = await flatRef.get();
-		if(!promise.exists) {
+		if (!promise.exists) {
 			console.log('cant find ' + this.userId);
 		} else {
 			return this._DB.doc(`users/${this.userId}`).update('flatKey', flatId);
@@ -101,18 +101,58 @@ export class FirestoreProvider {
 			flatmateIds.push(doc.id);
 		});
 		return flatmateIds;
-}
+	}
 
-/**
- * 
- */
-setFlatId() {
-	this._DB.doc(`users/${this.userId}`).get()
-		.then(docSnapshot => {
-			this.flatId = docSnapshot.get('flatKey');
-			this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`)
-			this.groceryCollection = this._DB.collection(`flats/${this.flatId}/groceries`)
-			this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`)
+	async getChores() {
+		this.choresCollection.onSnapshot(function(docs) {
+			const chores = []
+			docs.array.forEach(doc => {
+				chores.push({
+					"choreName": doc.data().choreName,
+					"interval": doc.data().interval,
+					"flatmate": doc.data().flatmate
+				});
+			});
 		});
-}
+		return chores;
+	}
+
+	async getReminders() {
+		this.remindersCollection.onSnapshot(function(docs) {
+			const reminders = []
+			docs.array.forEach(doc => {
+				reminders.push({
+					"reminderName": doc.data().reminderName,
+					"reminderDate": doc.data().reminderDate
+				});
+			});
+		});
+		return reminders;
+	}
+
+	async getGroceries() {
+		this.groceryCollection.onSnapshot(function(docs) {
+			const groceries = []
+			docs.array.forEach(doc => {
+				groceries.push({
+					"groceryName": doc.data().groceryName,
+					"completed": doc.data().completed
+				});
+			});
+		});
+		return groceries;
+	}
+
+	/**
+	 * 
+	 */
+	setFlatId() {
+		this._DB.doc(`users/${this.userId}`).get()
+			.then(docSnapshot => {
+				this.flatId = docSnapshot.get('flatKey');
+				this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`)
+				this.groceryCollection = this._DB.collection(`flats/${this.flatId}/groceries`)
+				this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`)
+			});
+	}
 }

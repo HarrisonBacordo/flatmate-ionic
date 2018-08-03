@@ -31,7 +31,7 @@ export class AddReminderPage {
 			this.addReminderForm.value.reminderDate)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.push(RemindersPage);
+					this.navCtrl.push(TabsPage);
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

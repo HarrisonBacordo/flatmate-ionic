@@ -3,6 +3,7 @@ import { NavController, LoadingController, Loading, AlertController } from 'ioni
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { ChoresPage } from '../chores/chores';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
 	selector: 'page-add-chore',
@@ -29,7 +30,7 @@ export class AddChorePage {
 		this.databaseProvider.attemptAddChore(this.addChoreForm.value.choreName, this.addChoreForm.value.interval)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.push(ChoresPage);
+					this.navCtrl.push(TabsPage);
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

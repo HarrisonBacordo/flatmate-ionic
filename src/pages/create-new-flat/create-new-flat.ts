@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angul
 import { JoinExistingFlatPage } from '../join-existing-flat/join-existing-flat';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { ChoresPage } from '../chores/chores';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
 	selector: 'page-create-new-flat',
@@ -31,7 +32,7 @@ export class CreateNewFlatPage {
 			this.databaseProvider.createNewFlat(this.createNewFlatForm.value.flatName)
 				.then(authData => {
 					this.loading.dismiss().then(() => {
-						this.navCtrl.setRoot(ChoresPage);
+						this.navCtrl.push(TabsPage);
 					}, error => {
 						this.loading.dismiss().then(() => {
 							let alert = this.alertCtrl.create({
