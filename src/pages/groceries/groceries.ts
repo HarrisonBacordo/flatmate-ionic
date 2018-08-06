@@ -14,7 +14,11 @@ export class GroceriesPage {
 		public navCtrl: NavController,
 		public modalCtrl: ModalController,
 		public databaseProvider: FirestoreProvider) {
-			this.groceries = databaseProvider.getGroceries();
+	}
+
+	ionViewWillEnter() {
+		this.groceries = databaseProvider.getGroceries();
+
 	}
 
 	updateGrocery(grocery) {
