@@ -13,7 +13,7 @@ export class FirestoreProvider {
 	public userDoc: any;
 	public choresCollection: CollectionReference;
 	public remindersCollection: CollectionReference;
-	public groceryCollection: CollectionReference;
+	public groceriesCollection: CollectionReference;
 	public choresList = [];
 	public remindersList: Array<any>;
 	public groceriesList: Array<any>;
@@ -92,7 +92,7 @@ export class FirestoreProvider {
 	 * @param groceryName 
 	 */
 	attemptAddGrocery(groceryName: string): Promise<void> {
-		return this.groceryCollection.doc().set({ 'groceryName': groceryName, 'completed': false });
+		return this.groceriesCollection.doc().set({ 'groceryName': groceryName, 'completed': false });
 	}
 
 	/**
@@ -117,7 +117,8 @@ export class FirestoreProvider {
 					"choreName": doc.data().choreName,
 					"interval": doc.data().interval,
 					"flatmate": doc.data().flatmate,
-					"isDone": doc.data().isDone
+					"isDone": doc.data().isDone,
+					"id": doc.id
 				});
 			});
 			return chores;
@@ -131,7 +132,8 @@ export class FirestoreProvider {
 			docs.forEach(doc => {
 				reminders.push({
 					"reminderName": doc.data().reminderName,
-					"reminderDate": doc.data().reminderDate
+					"reminderDate": doc.data().reminderDate,
+					"id": doc.id
 				});
 			});
 			return reminders;
@@ -141,17 +143,26 @@ export class FirestoreProvider {
 
 	getGroceries(): Array<any> {
 		var groceries = [];
-		this.groceryCollection.onSnapshot(function (docs) {
+		this.groceriesCollection.onSnapshot(function (docs) {
 			docs.forEach(doc => {
 				groceries.push({
 					"groceryName": doc.data().groceryName,
-					"completed": doc.data().completed
+					"completed": doc.data().completed,
+					"id": doc.id
 				});
 			});
 			return groceries;
 		});
 		return groceries;
 
+	}
+
+	updateChore(chore, isDone): Promise<void> {
+		return this.choresCollection.doc(chore.id).update('isDone', isDone);
+	}
+
+	updateGrocery(grocery, completed): Promise<void> {
+		return this.groceriesCollection.doc(grocery.id).update('completed', completed);
 	}
 
 	/**
@@ -162,7 +173,7 @@ export class FirestoreProvider {
 		this.flatId = docSnapshot.get('flatKey');
 		this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`);
 		this.choresList = this.getChores();
-		this.groceryCollection = this._DB.collection(`flats/${this.flatId}/groceries`);
+		this.groceriesCollection = this._DB.collection(`flats/${this.flatId}/groceries`);
 		this.groceriesList = this.getGroceries();
 		this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`);
 		this.remindersList = this.getReminders();

@@ -8,12 +8,20 @@ import { FirestoreProvider } from '../../providers/firestore/firestore';
 	templateUrl: 'chores.html'
 })
 export class ChoresPage {
-	public chores: any;
+	public chores = [];
 	constructor(
 		public navCtrl: NavController,
 		public modalCtrl: ModalController,
 		public databaseProvider: FirestoreProvider) {
-			this.chores = this.databaseProvider.getChores();
+	}
+
+	ionViewWillEnter() {
+		this.chores = this.databaseProvider.getChores();
+	}
+
+	updateChore(chore) {
+		chore.isDone = !chore.isDone;
+		this.databaseProvider.updateChore(chore, chore.isDone);
 	}
 
 	openAddChorePage() {

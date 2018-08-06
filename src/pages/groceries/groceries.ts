@@ -17,9 +17,10 @@ export class GroceriesPage {
 			this.groceries = databaseProvider.getGroceries();
 	}
 
-	updateItem(item) {
+	updateGrocery(grocery) {
 		// update database
-		
+		grocery.completed = !grocery.completed;
+		this.databaseProvider.updateGrocery(grocery, grocery.completed);
 	}
 
 	openAddGroceryPage() {
