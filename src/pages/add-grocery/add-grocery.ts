@@ -29,7 +29,7 @@ export class AddGroceryPage {
 		this.databaseProvider.attemptAddGrocery(this.addGroceryForm.value.groceryName)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.push(TabsPage);
+					this.navCtrl.pop();
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

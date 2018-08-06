@@ -6,23 +6,19 @@ import { FirestoreProvider } from '../../providers/firestore/firestore';
 export class AuthProvider {
 	constructor(public firestoreProvider: FirestoreProvider) { }
 
-	loginUser(email: string, password: string): Promise<any> {
-		const temp = firebase.auth().signInWithEmailAndPassword(email, password)
-			.then(signInData => {
-				this.firestoreProvider.userId = signInData.user.uid;
-				this.firestoreProvider.setFlatId();
-			});
-		return temp;
+	async loginUser(email: string, password: string): Promise<any> {
+		const userDetails = await firebase.auth().signInWithEmailAndPassword(email, password);
+		this.firestoreProvider.userId = userDetails.user.uid;
+		await this.firestoreProvider.setFlatId();
+		return userDetails
 	}
 
-	signupUser(email: string, password: string, firstName: string, lastName: string): Promise<any> {
-		const temp = firebase.auth().createUserWithEmailAndPassword(email, password)
-			.then(newUser => {
-				this.firestoreProvider.createFlatmate(newUser.user.uid, email, firstName,lastName, firstName + " " + lastName, 'Unassigned')
-				this.firestoreProvider.userId = newUser.user.uid;
-				this.firestoreProvider.setFlatId();
-			});
-			return temp
+	async signupUser(email: string, password: string, firstName: string, lastName: string): Promise<any> {
+		const newUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
+		this.firestoreProvider.createFlatmate(newUser.user.uid, email, firstName,lastName, firstName + " " + lastName, 'Unassigned')
+		this.firestoreProvider.userId = newUser.user.uid;
+		await this.firestoreProvider.setFlatId();
+		return newUser;
 	}
 
 	// NEED TO SHOW A DIALOGUE SAYING THE PASSWORD HAS BEEN RESET

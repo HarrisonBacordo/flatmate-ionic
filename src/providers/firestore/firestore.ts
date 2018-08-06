@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import { firebaseConfig } from '../../app/credentials';
 import { last } from '../../../node_modules/rxjs/operator/last';
-import { Query, DocumentReference } from '../../../node_modules/angularfire2/firestore';
+import { Query, DocumentReference, CollectionReference } from '../../../node_modules/angularfire2/firestore';
+import { FirebaseFirestore } from '../../../node_modules/angularfire2';
 
 @Injectable()
 export class FirestoreProvider {
-	private _DB: any;
+	private _DB: FirebaseFirestore;
 	public userId: string;
 	public flatId: string;
 	public userDoc: any;
-	public choresCollection: any;
-	public remindersCollection: any;
-	public groceryCollection: any;
+	public choresCollection: CollectionReference;
+	public remindersCollection: CollectionReference;
+	public groceryCollection: CollectionReference;
+	public choresList = [];
+	public remindersList: Array<any>;
+	public groceriesList: Array<any>;
 
 
 
@@ -69,7 +73,9 @@ export class FirestoreProvider {
 	async attemptAddChore(choreName: string, interval: any): Promise<void> {
 		const flatmates = await this.getAllFlatmates(this.flatId);
 		var chosenFlatmateId = flatmates[Math.floor(Math.random() * flatmates.length)];
-		return this.choresCollection.doc().set({ 'choreName': choreName, 'interval': interval, 'flatmate': chosenFlatmateId, isDone: false });
+		const promise = await this._DB.doc(`users/${chosenFlatmateId}`).get();
+		const flatmateName = promise.get('fullName');
+		return this.choresCollection.doc().set({ 'choreName': choreName, 'interval': interval, 'flatmate': flatmateName, isDone: false });
 	}
 
 	/**
@@ -103,56 +109,62 @@ export class FirestoreProvider {
 		return flatmateIds;
 	}
 
-	async getChores() {
-		this.choresCollection.onSnapshot(function(docs) {
-			const chores = []
-			docs.array.forEach(doc => {
+	getChores(): Array<any> {
+		var chores = [];
+		this.choresCollection.onSnapshot(function (docs) {
+			docs.forEach(doc => {
 				chores.push({
 					"choreName": doc.data().choreName,
 					"interval": doc.data().interval,
-					"flatmate": doc.data().flatmate
+					"flatmate": doc.data().flatmate,
+					"isDone": doc.data().isDone
 				});
 			});
+			return chores;
 		});
 		return chores;
 	}
 
-	async getReminders() {
-		this.remindersCollection.onSnapshot(function(docs) {
-			const reminders = []
-			docs.array.forEach(doc => {
+	getReminders(): Array<any> {
+		var reminders = [];
+		this.remindersCollection.onSnapshot(function (docs) {
+			docs.forEach(doc => {
 				reminders.push({
 					"reminderName": doc.data().reminderName,
 					"reminderDate": doc.data().reminderDate
 				});
 			});
+			return reminders;
 		});
 		return reminders;
 	}
 
-	async getGroceries() {
-		this.groceryCollection.onSnapshot(function(docs) {
-			const groceries = []
-			docs.array.forEach(doc => {
+	getGroceries(): Array<any> {
+		var groceries = [];
+		this.groceryCollection.onSnapshot(function (docs) {
+			docs.forEach(doc => {
 				groceries.push({
 					"groceryName": doc.data().groceryName,
 					"completed": doc.data().completed
 				});
 			});
+			return groceries;
 		});
 		return groceries;
+
 	}
 
 	/**
 	 * 
 	 */
-	setFlatId() {
-		this._DB.doc(`users/${this.userId}`).get()
-			.then(docSnapshot => {
-				this.flatId = docSnapshot.get('flatKey');
-				this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`)
-				this.groceryCollection = this._DB.collection(`flats/${this.flatId}/groceries`)
-				this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`)
-			});
+	async setFlatId() {
+		const docSnapshot = await this._DB.doc(`users/${this.userId}`).get();
+		this.flatId = docSnapshot.get('flatKey');
+		this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`);
+		this.choresList = this.getChores();
+		this.groceryCollection = this._DB.collection(`flats/${this.flatId}/groceries`);
+		this.groceriesList = this.getGroceries();
+		this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`);
+		this.remindersList = this.getReminders();
 	}
 }

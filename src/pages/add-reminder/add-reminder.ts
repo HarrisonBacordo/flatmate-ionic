@@ -3,6 +3,7 @@ import { NavController, LoadingController, Loading, AlertController } from 'ioni
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { RemindersPage } from '../reminders/reminders';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
 	selector: 'page-add-reminder',
@@ -31,7 +32,7 @@ export class AddReminderPage {
 			this.addReminderForm.value.reminderDate)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.push(TabsPage);
+					this.navCtrl.pop();
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

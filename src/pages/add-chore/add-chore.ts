@@ -30,7 +30,7 @@ export class AddChorePage {
 		this.databaseProvider.attemptAddChore(this.addChoreForm.value.choreName, this.addChoreForm.value.interval)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.push(TabsPage);
+					this.navCtrl.pop();
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

@@ -11,17 +11,17 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding *ngIf="chores">
 	<ion-grid>
 		<ion-row>
-			<ion-col col-6>
-				<ion-card *ngFor="let chore of chores">
-					<div class="card-title">{{chore.choreTitle}}</div>
-					<div class="card-subtitle">{{chore.refresh}}</div>
+			<ion-col col-6 *ngFor="let chore of chores">
+				<ion-card>
+					<div class="card-title">{{chore.choreName}}</div>
+					<div class="card-subtitle">{{chore.interval}}</div>
 					<div class="card-checkbox">
 						<ion-item>
-							<ion-label>{{chore.flatmateAssigned}}</ion-label>
-							<ion-checkbox color="dark" checked="true"></ion-checkbox>
+							<ion-label>{{chore.flatmate}}</ion-label>
+							<ion-checkbox color="dark" checked={{chore.isDone}}></ion-checkbox>
 						</ion-item>
 					</div>
 				</ion-card>

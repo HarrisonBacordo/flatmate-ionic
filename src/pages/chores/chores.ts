@@ -13,10 +13,7 @@ export class ChoresPage {
 		public navCtrl: NavController,
 		public modalCtrl: ModalController,
 		public databaseProvider: FirestoreProvider) {
-	}
-
-	ionViewWillEnter() {
-		// this.chores = this.databaseProvider.getChores();
+			this.chores = this.databaseProvider.getChores();
 	}
 
 	openAddChorePage() {
