@@ -16,8 +16,8 @@ export class RemindersPage {
 		public databaseProvider: FirestoreProvider) {
 	}
 
-	ionViewWillEnter() {
-		this.reminders = this.databaseProvider.getReminders();
+	ionViewDidLoad() {
+		this.reminders = this.databaseProvider.remindersList;
 	}
 
 	openAddReminderPage() {

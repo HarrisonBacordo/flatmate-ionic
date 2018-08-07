@@ -16,8 +16,8 @@ export class GroceriesPage {
 		public databaseProvider: FirestoreProvider) {
 	}
 
-	ionViewWillEnter() {
-		this.groceries = databaseProvider.getGroceries();
+	ionViewDidLoad() {
+		this.groceries = this.databaseProvider.groceriesList;
 
 	}
 
