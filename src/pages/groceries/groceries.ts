@@ -21,6 +21,9 @@ export class GroceriesPage {
 
 	}
 
+	/**
+	 * Updates this grocery's completed value
+	 */
 	updateGrocery(grocery) {
 		// update database
 		grocery.completed = !grocery.completed;

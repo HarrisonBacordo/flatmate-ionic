@@ -25,6 +25,9 @@ export class AddGroceryPage {
 		});
 	}
 
+	/**
+	 * Tries to add a grocery item to Firestore
+	 */
 	tryAddGrocery() {
 		this.databaseProvider.attemptAddGrocery(this.addGroceryForm.value.groceryName)
 			.then(data => {
