@@ -15,8 +15,8 @@ export class ChoresPage {
 		public databaseProvider: FirestoreProvider) {
 	}
 
-	ionViewWillEnter() {
-		this.chores = this.databaseProvider.getChores();
+	ionViewDidLoad() {
+		this.chores = this.databaseProvider.choresList;
 	}
 
 	updateChore(chore) {

@@ -172,10 +172,10 @@ export class FirestoreProvider {
 		const docSnapshot = await this._DB.doc(`users/${this.userId}`).get();
 		this.flatId = docSnapshot.get('flatKey');
 		this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`);
-		this.choresList = this.getChores();
+		this.choresList = await this.getChores();
 		this.groceriesCollection = this._DB.collection(`flats/${this.flatId}/groceries`);
-		this.groceriesList = this.getGroceries();
+		this.groceriesList = await this.getGroceries();
 		this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`);
-		this.remindersList = this.getReminders();
+		this.remindersList = await this.getReminders();
 	}
 }
