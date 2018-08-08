@@ -16,12 +16,15 @@ export class ChoresPage {
 	}
 
 	ionViewDidLoad() {
-		this.chores = this.databaseProvider.choresList;
+		this.chores = this.databaseProvider.getChores();
 	}
 
 	updateChore(chore) {
 		chore.isDone = !chore.isDone;
-		this.databaseProvider.updateChore(chore, chore.isDone);
+		this.chores = [];
+		this.databaseProvider.updateChore(chore, chore.isDone).then(() => {
+			this.chores = this.databaseProvider.getChores();
+		})
 	}
 
 	openAddChorePage() {

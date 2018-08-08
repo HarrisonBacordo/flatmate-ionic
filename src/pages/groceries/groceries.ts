@@ -17,14 +17,17 @@ export class GroceriesPage {
 	}
 
 	ionViewDidLoad() {
-		this.groceries = this.databaseProvider.groceriesList;
+		this.groceries = this.databaseProvider.getGroceries();
 
 	}
 
 	updateGrocery(grocery) {
 		// update database
 		grocery.completed = !grocery.completed;
-		this.databaseProvider.updateGrocery(grocery, grocery.completed);
+		this.groceries = [];
+		this.databaseProvider.updateGrocery(grocery, grocery.completed).then(() => {
+			this.groceries = this.databaseProvider.getGroceries();
+		})
 	}
 
 	openAddGroceryPage() {

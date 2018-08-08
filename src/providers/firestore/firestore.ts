@@ -14,12 +14,6 @@ export class FirestoreProvider {
 	public choresCollection: CollectionReference;
 	public remindersCollection: CollectionReference;
 	public groceriesCollection: CollectionReference;
-	public choresList = [];
-	public remindersList: Array<any>;
-	public groceriesList: Array<any>;
-
-
-
 
 	constructor() {
 		this._DB = firebase.firestore();
@@ -172,10 +166,7 @@ export class FirestoreProvider {
 		const docSnapshot = await this._DB.doc(`users/${this.userId}`).get();
 		this.flatId = docSnapshot.get('flatKey');
 		this.choresCollection = this._DB.collection(`flats/${this.flatId}/chores`);
-		this.choresList = await this.getChores();
 		this.groceriesCollection = this._DB.collection(`flats/${this.flatId}/groceries`);
-		this.groceriesList = await this.getGroceries();
 		this.remindersCollection = this._DB.collection(`flats/${this.flatId}/reminders`);
-		this.remindersList = await this.getReminders();
 	}
 }
