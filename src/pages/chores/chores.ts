@@ -15,10 +15,17 @@ export class ChoresPage {
 		public databaseProvider: FirestoreProvider) {
 	}
 
+	/**
+	 * Loads the chores list
+	 */
 	ionViewDidLoad() {
 		this.chores = this.databaseProvider.getChores();
 	}
 
+	/**
+	 * Updates this chore item's isDone value
+	 * @param chore - Chore item to update
+	 */
 	updateChore(chore) {
 		chore.isDone = !chore.isDone;
 		this.chores = [];
@@ -27,6 +34,9 @@ export class ChoresPage {
 		})
 	}
 
+	/**
+	 * Opens AddChore modal
+	 */
 	openAddChorePage() {
 		const modal = this.modalCtrl.create(AddChorePage);
 		modal.present();

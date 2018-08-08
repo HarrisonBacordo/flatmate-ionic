@@ -26,6 +26,9 @@ export class AddChorePage {
 		});
 	}
 
+	/**
+	 * Attempts to add chore to Firestore
+	 */
 	tryAddChore() {
 		this.databaseProvider.attemptAddChore(this.addChoreForm.value.choreName, this.addChoreForm.value.interval)
 			.then(data => {

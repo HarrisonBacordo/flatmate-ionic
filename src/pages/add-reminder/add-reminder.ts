@@ -27,6 +27,9 @@ export class AddReminderPage {
 		});
 	}
 
+	/**
+	 * Attempts to add reminder to Firestore
+	 */
 	tryAddReminder() {
 		this.databaseProvider.attemptAddReminder(this.addReminderForm.value.reminderName,
 			this.addReminderForm.value.reminderDate)
