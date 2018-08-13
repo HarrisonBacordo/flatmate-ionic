@@ -17,7 +17,7 @@ export class RemindersPage {
 	}
 
 	ionViewDidLoad() {
-		this.reminders = this.databaseProvider.remindersList;
+		this.reminders = this.databaseProvider.getReminders();
 	}
 
 	openAddReminderPage() {

@@ -19,7 +19,7 @@ export class ChoresPage {
 	 * Loads the chores list
 	 */
 	ionViewDidLoad() {
-		this.chores = this.databaseProvider.choresList;
+		this.chores = this.databaseProvider.getChores();
 	}
 
 	/**
@@ -28,7 +28,10 @@ export class ChoresPage {
 	 */
 	updateChore(chore) {
 		chore.isDone = !chore.isDone;
-		this.databaseProvider.updateChore(chore, chore.isDone);
+		this.chores = [];
+		this.databaseProvider.updateChore(chore, chore.isDone).then(() => {
+			this.chores = this.databaseProvider.getChores();
+		})
 	}
 
 	sendNudge(flatmate) {
