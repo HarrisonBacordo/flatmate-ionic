@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
 import { AddChorePage } from '../add-chore/add-chore';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 
@@ -12,7 +12,8 @@ export class ChoresPage {
 	constructor(
 		public navCtrl: NavController,
 		public modalCtrl: ModalController,
-		public databaseProvider: FirestoreProvider) {
+		public databaseProvider: FirestoreProvider,
+		public actionSheetCtrl: ActionSheetController) {
 	}
 
 	/**
@@ -43,7 +44,40 @@ export class ChoresPage {
 	 */
 	openAddChorePage() {
 		const modal = this.modalCtrl.create(AddChorePage);
+		modal.onDidDismiss(data => {
+			if (data) {
+				this.chores = [];
+				this.chores = this.databaseProvider.getChores();
+			}
+		})
 		modal.present();
+	}
+
+	/**
+	 * Presents the action sheet for the specific chore
+	 * @param chore 
+	 */
+	presentActionSheet(chore) {
+		const actionSheet = this.actionSheetCtrl.create({
+			title: chore.choreName,
+			buttons: [
+				{
+					text: 'Delete',
+					role: 'destructive',
+					handler: () => {
+						this.chores = [];
+						this.databaseProvider.deleteChore(chore);
+						this.chores = this.databaseProvider.getChores();
+					}
+				}, {
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => {
+					}
+				}
+			]
+		});
+		actionSheet.present();
 	}
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, Loading, AlertController, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { ChoresPage } from '../chores/chores';
@@ -17,13 +17,18 @@ export class AddChorePage {
 		public formBuilder: FormBuilder,
 		public databaseProvider: FirestoreProvider,
 		public loadingCtrl: LoadingController,
-		public alertCtrl: AlertController) {
+		public alertCtrl: AlertController,
+		public viewCtrl: ViewController) {
 		this.addChoreForm = formBuilder.group({
 			choreName: ['',
 				Validators.compose([Validators.required])],
 			interval: ['',
 				Validators.compose([Validators.required])]
 		});
+	}
+
+	dismiss() {
+		this.viewCtrl.dismiss(false);
 	}
 
 	/**
@@ -33,7 +38,7 @@ export class AddChorePage {
 		this.databaseProvider.attemptAddChore(this.addChoreForm.value.choreName, this.addChoreForm.value.interval)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.pop();
+					this.viewCtrl.dismiss(true);
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

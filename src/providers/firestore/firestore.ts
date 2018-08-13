@@ -199,6 +199,10 @@ export class FirestoreProvider {
 		return this.groceriesCollection.doc(grocery.id).update('completed', completed);
 	}
 
+	deleteChore(chore) {
+		return this.choresCollection.doc(chore.id).delete();
+	}
+
 	/**
 	 * Sets up flat variables according to the flat that the user is in
 	 */
