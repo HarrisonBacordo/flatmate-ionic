@@ -31,6 +31,10 @@ export class ChoresPage {
 		this.databaseProvider.updateChore(chore, chore.isDone);
 	}
 
+	sendNudge(flatmate) {
+		this.databaseProvider.sendNudge(flatmate);
+	}
+
 	/**
 	 * Opens AddChore modal
 	 */

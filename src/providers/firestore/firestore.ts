@@ -35,8 +35,8 @@ export class FirestoreProvider {
 	 * @param flatKey - Current flat key of the flatmate
 	 */
 	createFlatmate(id: String, email: string, firstName: string, lastName: string, fullName: string, flatKey: string): Promise<void> {
-		const choresList = [];
-		return this._DB.doc(`users/${id}`).set({ email, firstName, lastName, fullName, flatKey, choresList });
+		const nudgeCount = 0;
+		return this._DB.doc(`users/${id}`).set({ email, firstName, lastName, fullName, flatKey, nudgeCount });
 	}
 
 	/**
@@ -75,12 +75,11 @@ export class FirestoreProvider {
 	 */
 	async attemptAddChore(choreName: string, interval: any): Promise<void> {
 		// Randomly select a flatmate to do this chore, and get their full name
-		const flatmates = await this.getAllFlatmates(this.flatId);
-		var chosenFlatmateId = flatmates[Math.floor(Math.random() * flatmates.length)];
-		const promise = await this._DB.doc(`users/${chosenFlatmateId}`).get();
-		const flatmateName = promise.get('fullName');
+		const flatmates = await this.getAllFlatmates(this.flatId)
+		const keys = Object.keys(flatmates);
+		const chosenFlatmate = flatmates[keys[ keys.length * Math.random() << 0]];
 		// Add the chore item to Firestore
-		return this.choresCollection.doc().set({ 'choreName': choreName, 'interval': interval, 'flatmate': flatmateName, isDone: false });
+		return this.choresCollection.doc().set({ 'choreName': choreName, 'interval': interval, 'flatmate': chosenFlatmate, isDone: false });
 	}
 
 	/**
@@ -101,15 +100,29 @@ export class FirestoreProvider {
 	}
 
 	/**
+	 * Sends nudge to given flatmate
+	 * @param flatmateName - name of flatmate to receive nudge
+	 */
+	async sendNudge(flatmateName: string) {
+		const flatmates = await this.getAllFlatmates(this.flatId);
+		for (const key in flatmates) {
+			if (flatmates[key] == flatmateName) {
+				const docSnapshot = await this._DB.doc(`users/${key}`).get();
+				docSnapshot.ref.update('nudgeCount', ++docSnapshot.data().nudgeCount);
+			}
+		}
+	}
+
+	/**
 	 * Returns a list of all flatmates within the current flat in Firestore
 	 * @param flatId 
 	 */
 	async getAllFlatmates(flatId: string) {
-		const flatmateIds: Array<string> = new Array();
+		const flatmateIds: Object = {};
 		const query: Query = this._DB.collection('users').where('flatKey', '==', flatId);
 		const promise = await query.get();
 		promise.forEach(doc => {
-			flatmateIds.push(doc.id);
+			flatmateIds[doc.id] = doc.data().fullName;
 		});
 		return flatmateIds;
 	}

@@ -20,6 +20,9 @@
 					<div class="card-subtitle">{{chore.interval}}</div>
 					<div class="card-checkbox">
 						<ion-item>
+							<button ion-button (click)="sendNudge(chore.flatmate)">Nudge</button>
+						</ion-item>
+						<ion-item>
 							<ion-label>{{chore.flatmate}}</ion-label>
 							<ion-checkbox color="dark" checked={{chore.isDone}} (ionChange)="updateChore(chore)"></ion-checkbox>
 						</ion-item>
