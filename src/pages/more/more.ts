@@ -4,6 +4,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { TabsPage } from '../tabs/tabs';
 import { CreateNewFlatPage } from '../create-new-flat/create-new-flat';
+import { FlatIdPage } from '../flat-id/flat-id';
 
 @Component({
 	selector: 'page-more',
@@ -45,5 +46,9 @@ export class MorePage {
 
 	goToNewFlatPage() {
 		this.navCtrl.push(CreateNewFlatPage);
+	}
+
+	goToFlatId() {
+		this.navCtrl.push(FlatIdPage);
 	}
 }

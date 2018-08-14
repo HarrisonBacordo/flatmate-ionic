@@ -28,6 +28,9 @@ import { AuthProvider } from '../providers/auth/auth';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 import { CreateNewFlatPage } from '../pages/create-new-flat/create-new-flat';
 import { JoinExistingFlatPage } from '../pages/join-existing-flat/join-existing-flat';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { FlatIdPage } from '../pages/flat-id/flat-id';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -46,6 +49,7 @@ firebase.initializeApp(firebaseConfig);
 		GroceriesPage,
 		AddGroceryPage,
 		MorePage,
+		FlatIdPage,
 		TabsPage
 	],
 	imports: [
@@ -54,7 +58,8 @@ firebase.initializeApp(firebaseConfig);
 		AngularFirestoreModule,
 		AngularFireModule.initializeApp(firebaseConfig),
 		AngularFireAuthModule,
-		IonicModule.forRoot(MyApp)
+		IonicModule.forRoot(MyApp),
+		NgxQRCodeModule
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -71,6 +76,7 @@ firebase.initializeApp(firebaseConfig);
 		GroceriesPage,
 		AddGroceryPage,
 		MorePage,
+		FlatIdPage,
 		TabsPage
 	],
 	providers: [
@@ -80,6 +86,7 @@ firebase.initializeApp(firebaseConfig);
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		FirestoreProvider,
 		AuthProvider,
+		BarcodeScanner
 	]
 })
 export class AppModule { }

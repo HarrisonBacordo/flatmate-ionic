@@ -1,0 +1,11 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>Flat ID</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<h1>Below is a QR Code that represents your Flat ID</h1>
+	<ngx-qrcode [qrc-value]="createdCode" *ngIf="qrData != nullCode"></ngx-qrcode>
+	<p *ngIf="qrData == nullCode">Doesn't seem like you have joined a flat yet!</p>
+</ion-content>

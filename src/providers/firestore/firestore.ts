@@ -203,6 +203,14 @@ export class FirestoreProvider {
 		return this.choresCollection.doc(chore.id).delete();
 	}
 
+	deleteGrocery(grocery) {
+		return this.groceriesCollection.doc(grocery.id).delete();
+	}
+	
+	deleteReminder(reminder) {
+		return this.remindersCollection.doc(reminder.id).delete();
+	}
+
 	/**
 	 * Sets up flat variables according to the flat that the user is in
 	 */
