@@ -16,12 +16,10 @@
 		<ion-row>
 			<ion-col col-6 *ngFor="let chore of chores">
 				<ion-card (press)="presentActionSheet(chore)">
-					<div class="card-title">{{chore.choreName}}</div>
+					<div class="card-title" [ngStyle]="{'color': getColor(chore.isDone)}">{{chore.choreName}}</div>
 					<div class="card-subtitle">{{chore.interval}}</div>
+					<button ion-button round (click)="sendNudge(chore.flatmate)" [disabled]=chore.isDone>Nudge</button>
 					<div class="card-checkbox">
-						<ion-item>
-							<button ion-button (click)="sendNudge(chore.flatmate)" [disabled]=chore.isDone>Nudge</button>
-						</ion-item>
 						<ion-item>
 							<ion-label>{{chore.flatmate}}</ion-label>
 							<ion-checkbox color="dark" checked={{chore.isDone}} (ionChange)="updateChore(chore)"></ion-checkbox>

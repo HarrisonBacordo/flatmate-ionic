@@ -80,4 +80,9 @@ export class ChoresPage {
 		actionSheet.present();
 	}
 
+	getColor(isDone) {
+		if (isDone) { return '#49CB43'; }
+		else { return '#E87570'; }
+	}
+
 }

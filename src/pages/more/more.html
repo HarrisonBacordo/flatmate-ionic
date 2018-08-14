@@ -1,24 +1,19 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>More</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <ion-item>
-		<button ion-button (click)="logoutUser();">
+	<ion-navbar>
+		<ion-title>More</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<button ion-item (click)="logoutUser();">
 			Sign out
 		</button>
-	</ion-item>
-	<ion-item>
-		<button ion-button (click)="goToNewFlatPage();">
+		<button ion-item (click)="goToNewFlatPage();">
 			New flat
 		</button>
-	</ion-item>
-	<ion-item>
-		<button ion-button (click)="goToFlatId();">
+		<button ion-item (click)="goToFlatId();">
 			Flat ID
 		</button>
-	</ion-item>
-  </ion-content>
-  
+	</ion-list>
+</ion-content>
