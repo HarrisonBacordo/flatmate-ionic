@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, Loading, AlertController, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { GroceriesPage } from '../groceries/groceries';
@@ -18,11 +18,16 @@ export class AddGroceryPage {
 		public formBuilder: FormBuilder,
 		public databaseProvider: FirestoreProvider,
 		public loadingCtrl: LoadingController,
-		public alertCtrl: AlertController) {
+		public alertCtrl: AlertController,
+		public viewCtrl: ViewController) {
 		this.addGroceryForm = formBuilder.group({
 			groceryName: ['',
 				Validators.compose([Validators.required])]
 		});
+	}
+
+	dismiss() {
+		this.viewCtrl.dismiss(false);
 	}
 
 	/**
@@ -32,7 +37,7 @@ export class AddGroceryPage {
 		this.databaseProvider.attemptAddGrocery(this.addGroceryForm.value.groceryName)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.pop();
+					this.viewCtrl.dismiss(true);
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

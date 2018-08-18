@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, Loading, AlertController, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { RemindersPage } from '../reminders/reminders';
@@ -18,13 +18,18 @@ export class AddReminderPage {
 		public formBuilder: FormBuilder,
 		public databaseProvider: FirestoreProvider,
 		public loadingCtrl: LoadingController,
-		public alertCtrl: AlertController) {
+		public alertCtrl: AlertController,
+		public viewCtrl: ViewController) {
 		this.addReminderForm = formBuilder.group({
 			reminderName: ['',
 				Validators.compose([Validators.required])],
 			reminderDate: ['',
 				Validators.compose([Validators.required])]
 		});
+	}
+
+	dismiss() {
+		this.viewCtrl.dismiss(false);
 	}
 
 	/**
@@ -35,7 +40,7 @@ export class AddReminderPage {
 			this.addReminderForm.value.reminderDate)
 			.then(data => {
 				this.loading.dismiss().then(() => {
-					this.navCtrl.pop();
+					this.viewCtrl.dismiss(true);
 				})
 			}, error => {
 				this.loading.dismiss().then(() => {

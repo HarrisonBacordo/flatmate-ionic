@@ -8,7 +8,7 @@ import { FirestoreProvider } from '../../providers/firestore/firestore';
 	templateUrl: 'groceries.html'
 })
 export class GroceriesPage {
-	public groceries: any;
+	public groceries = [];
 
 	constructor(
 		public navCtrl: NavController,

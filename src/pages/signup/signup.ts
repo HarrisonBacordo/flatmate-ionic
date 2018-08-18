@@ -4,6 +4,8 @@ import { EmailValidator } from '../../validators/email';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { TabsPage } from '../tabs/tabs';
+import { JoinExistingFlatPage } from '../join-existing-flat/join-existing-flat';
+import { CreateNewFlatPage } from '../create-new-flat/create-new-flat';
 
 @Component({
 	selector: 'page-signup',
@@ -38,7 +40,7 @@ export class SignupPage {
 				this.signupForm.value.firstName, this.signupForm.value.lastName)
 				.then(authData => {
 					this.loading.dismiss().then(() => {
-						this.navCtrl.setRoot(TabsPage);
+						this.navCtrl.push(CreateNewFlatPage);
 					}, error => {
 						this.loading.dismiss().then(() => {
 							let alert = this.alertCtrl.create({

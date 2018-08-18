@@ -6,7 +6,7 @@
 
 <ion-content padding>
 	<h1>Below is a QR Code that represents your Flat ID</h1>
-	<p>Flat ID: {{qrData}}</p>
+	<p id="id-text">Flat ID: {{qrData}}</p>
 	<ngx-qrcode [qrc-value]="createdCode" *ngIf="qrData != nullCode"></ngx-qrcode>
 	<p *ngIf="qrData == nullCode">Doesn't seem like you have joined a flat yet!</p>
 </ion-content>

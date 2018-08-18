@@ -19,7 +19,7 @@ export class ChoresPage {
 	/**
 	 * Loads the chores list
 	 */
-	ionViewDidLoad() {
+	ionViewDidEnter() {
 		this.chores = this.databaseProvider.getChores();
 	}
 

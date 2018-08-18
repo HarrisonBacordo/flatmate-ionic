@@ -58,7 +58,8 @@ export class FirestoreProvider {
 		if (!promise.exists) {
 			console.log('cant find ' + this.userId);
 		} else {
-			return this._DB.doc(`users/${this.userId}`).update('flatKey', flatId);
+			const promise = await this._DB.doc(`users/${this.userId}`).update('flatKey', flatId);
+			return this.setFlatId();
 		}
 	}
 

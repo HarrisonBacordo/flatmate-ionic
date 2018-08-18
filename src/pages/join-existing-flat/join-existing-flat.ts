@@ -35,7 +35,7 @@ export class JoinExistingFlatPage {
 			this.databaseProvider.attemptJoinExistingFlat(this.joinExistingFlatForm.value.flatId)
 				.then(authData => {
 					this.loading.dismiss().then(() => {
-						this.navCtrl.setRoot(ChoresPage);
+						this.navCtrl.setRoot(TabsPage);
 					}, error => {
 						this.loading.dismiss().then(() => {
 							let alert = this.alertCtrl.create({
