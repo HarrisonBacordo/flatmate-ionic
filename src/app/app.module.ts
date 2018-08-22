@@ -31,6 +31,8 @@ import { JoinExistingFlatPage } from '../pages/join-existing-flat/join-existing-
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { FlatIdPage } from '../pages/flat-id/flat-id';
+import { FcmProvider } from '../providers/fcm/fcm';
+import { Firebase } from '@ionic-native/firebase';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -82,11 +84,13 @@ firebase.initializeApp(firebaseConfig);
 	providers: [
 		StatusBar,
 		SplashScreen,
+		Firebase,
 		FirebaseProvider,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		FirestoreProvider,
 		AuthProvider,
-		BarcodeScanner
+		BarcodeScanner,
+    FcmProvider
 	]
 })
 export class AppModule { }

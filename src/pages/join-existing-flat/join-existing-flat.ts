@@ -59,6 +59,28 @@ export class JoinExistingFlatPage {
 	scanCode() {
 		this.barcodeScanner.scan().then(barcodeData => {
 			this.scannedCode = barcodeData.text;
+			this.databaseProvider.attemptJoinExistingFlat(this.scannedCode)
+				.then(authData => {
+					this.loading.dismiss().then(() => {
+						this.navCtrl.setRoot(TabsPage);
+					}, error => {
+						this.loading.dismiss().then(() => {
+							let alert = this.alertCtrl.create({
+								message: error.message,
+								buttons: [
+									{
+										text: "Ok",
+										role: 'cancel'
+									}
+								]
+							});
+							alert.present();
+						});
+					});
+				});
+			this.loading = this.loadCtrl.create();
+			this.loading.present();
+
 		}, (err) => {
 			console.log('Error: ', err);
 		});

@@ -18,6 +18,18 @@ export class FirestoreProvider {
 	constructor() {
 		this._DB = firebase.firestore();
 	}
+ 
+	saveToken(token) {
+		if (!token) return;
+		const devicesRef = this._DB.collection('devices');
+
+		const docData = {
+			token,
+			userId: this.userId
+		}
+
+		return devicesRef.doc(token).set(docData);
+	}
 
 	/**
 	 * Creates a flatmate with the given parameters

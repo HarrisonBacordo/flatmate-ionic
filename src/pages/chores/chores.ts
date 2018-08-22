@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
+import { NavController, ModalController, ActionSheetController, Loading, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { AddChorePage } from '../add-chore/add-chore';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 
@@ -9,17 +9,22 @@ import { FirestoreProvider } from '../../providers/firestore/firestore';
 })
 export class ChoresPage {
 	public chores = [];
+	public loading: Loading;
 	constructor(
 		public navCtrl: NavController,
 		public modalCtrl: ModalController,
 		public databaseProvider: FirestoreProvider,
-		public actionSheetCtrl: ActionSheetController) {
+		public actionSheetCtrl: ActionSheetController,
+		public loadingCtrl: LoadingController,
+		public alertCtrl: AlertController,
+		public toastCtrl: ToastController
+	) {
 	}
 
 	/**
 	 * Loads the chores list
 	 */
-	ionViewDidEnter() {
+	ionViewDidLoad() {
 		this.chores = this.databaseProvider.getChores();
 	}
 
@@ -29,14 +34,37 @@ export class ChoresPage {
 	 */
 	updateChore(chore) {
 		chore.isDone = !chore.isDone;
-		this.chores = [];
-		this.databaseProvider.updateChore(chore, chore.isDone).then(() => {
-			this.chores = this.databaseProvider.getChores();
-		})
+		this.databaseProvider.updateChore(chore, chore.isDone)
+			.then(() => {
+				this.loading.dismiss().then(() => {
+					this.chores = [];
+					this.chores = this.databaseProvider.getChores();
+				})
+			}, error => {
+				this.loading.dismiss().then(() => {
+					let alert = this.alertCtrl.create({
+						message: error.message,
+						buttons: [
+							{
+								text: "Ok",
+								role: 'cancel'
+							}
+						]
+					});
+					alert.present();
+				});
+			});
+		this.loading = this.loadingCtrl.create();
+		this.loading.present();
 	}
 
 	sendNudge(flatmate) {
 		this.databaseProvider.sendNudge(flatmate);
+		const toast = this.toastCtrl.create({
+			message: "Your anonymous nudge has been sent!",
+			duration: 1500
+		});
+		toast.present();
 	}
 
 	/**
@@ -65,9 +93,32 @@ export class ChoresPage {
 					text: 'Delete',
 					role: 'destructive',
 					handler: () => {
-						this.chores = [];
-						this.databaseProvider.deleteChore(chore);
-						this.chores = this.databaseProvider.getChores();
+						this.databaseProvider.deleteChore(chore).then(() => {
+							this.loading.dismiss().then(() => {
+								this.chores = [];
+								this.chores = this.databaseProvider.getChores();
+								const toast = this.toastCtrl.create({
+									message: "Chore successfully deleted",
+									duration: 1500
+								});
+								toast.present();
+							})
+						}, error => {
+							this.loading.dismiss().then(() => {
+								let alert = this.alertCtrl.create({
+									message: error.message,
+									buttons: [
+										{
+											text: "Ok",
+											role: 'cancel'
+										}
+									]
+								});
+								alert.present();
+							});
+						});
+						this.loading = this.loadingCtrl.create();
+						this.loading.present();
 					}
 				}, {
 					text: 'Cancel',

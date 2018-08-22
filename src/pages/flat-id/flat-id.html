@@ -5,8 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-	<h1>Below is a QR Code that represents your Flat ID</h1>
-	<p id="id-text">Flat ID: {{qrData}}</p>
-	<ngx-qrcode [qrc-value]="createdCode" *ngIf="qrData != nullCode"></ngx-qrcode>
-	<p *ngIf="qrData == nullCode">Doesn't seem like you have joined a flat yet!</p>
+	<ion-grid>
+		<ion-row justify-content-center align-items-center>
+			<h1>Below is a QR Code that represents your Flat ID</h1>
+		</ion-row>
+		<ion-row justify-content-center align-items-center>
+			<p id="id-text">Flat ID: {{qrData}}</p>
+		</ion-row>
+		<ion-row justify-content-center align-items-center>
+			<ngx-qrcode [qrc-value]="createdCode" *ngIf="qrData != nullCode"></ngx-qrcode>
+			<p *ngIf="qrData == nullCode">Doesn't seem like you have joined a flat yet!</p>
+
+		</ion-row>
+
+	</ion-grid>
 </ion-content>

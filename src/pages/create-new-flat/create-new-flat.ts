@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController, Loading } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, Loading, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { JoinExistingFlatPage } from '../join-existing-flat/join-existing-flat';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { ChoresPage } from '../chores/chores';
 import { TabsPage } from '../tabs/tabs';
+import { FcmProvider } from '../../providers/fcm/fcm';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'page-create-new-flat',
@@ -18,11 +20,28 @@ export class CreateNewFlatPage {
 		public formBuilder: FormBuilder,
 		public databaseProvider: FirestoreProvider,
 		public loadCtrl: LoadingController,
-		public alertCtrl: AlertController
+		public alertCtrl: AlertController,
+		public fcm: FcmProvider,
+		public toastCtrl: ToastController
 	) {
 		this.createNewFlatForm = formBuilder.group({
 			flatName: ['', Validators.required]
 		});
+	}
+
+	ionViewDidLoad() {
+		// this.fcm.getToken();
+
+		// this.fcm.listenToNotifications().pipe(
+		// 	tap(msg => {
+		// 		const toast = this.toastCtrl.create({
+		// 			message: msg.body,
+		// 			duration: 3000
+		// 		});
+		// 		toast.present();
+		// 	})
+		// )
+		// .subscribe();
 	}
 
 	createNewFlat() {
